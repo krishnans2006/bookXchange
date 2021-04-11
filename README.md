@@ -31,4 +31,4 @@ Accomplishments that we are proud of are getting the database integrated within 
 Throughout our HackTJ 8.0 journey, we learned the various pieces of valuable information we will surely take with us to apply in future technological endeavors. One thing we learned was how to utilize boostrap in depth to optimize our website. We additionally learned how to integrate bootstrap, html, flask, and google cloud firestore to design and construct a properly functioning website, as well as the various other factors that go into web development and that yield a wholistic, efficient, user-friendly product.
 
 ## What's next for bookXchange
-In the future, we would like to 
+In the future, we would like to add more features to the website. For example, we will establish a method by which users can communicate on the platform and where they do not have to communicate through emai. This will allow for all the services to be packaged on the website. In general, bookXchange plans to expand into other sectors where we can allow for people to buy and sell other entities at low prices. Textbooks are just the start of the bookXchange's journey.

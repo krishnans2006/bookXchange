@@ -73,7 +73,9 @@
                 <div class="section-title">
                 <h2>View Textbook</h2>
                 <p>View some details before placing an order.</p>
+                {% if info %}
                 <a href="{{info['infoLink']}}" class="btn-learn-more" target="_blank"><i class="fas fa-plus"></i>&thinsp;More Info</a>
+                {% endif %}
                 </div>
 
                 <div class="row">

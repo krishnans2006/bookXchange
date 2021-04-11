@@ -123,7 +123,10 @@ def request_(id_):
         mail.send(msg)
         flash("Successfully submitted your request!", category="success")
         return redirect(url_for("find"))
-    resp = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + textbook["ISBN"] + "+isbn&key=" + os.getenv("BOOKS_KEY")).json()["items"][0]["volumeInfo"]
+    try:
+        resp = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + textbook["ISBN"] + "+isbn&key=" + os.getenv("BOOKS_KEY")).json()["items"][0]["volumeInfo"]
+    except:
+        resp = None
     return render_template("request.html", textbook=textbook, info=resp)
 
 if __name__ == "__main__":
