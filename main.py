@@ -27,7 +27,7 @@ METHODS = ["GET", "POST"]
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", video=os.getenv("YOUTUBE"))
 
 @app.route("/login", methods=METHODS)
 def login():
