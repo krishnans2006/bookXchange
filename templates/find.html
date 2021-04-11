@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Favicons -->
+        <link href="{{url_for('static', filename='assets/img/favicon.png')}}" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="{{url_for('static', filename = 'https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet')}}">
+
+        <!-- Vendor CSS Files -->
+        <link href="{{url_for('static', filename = 'assets/vendor/aos/aos.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename = 'assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename = 'assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename = 'assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename = 'assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename = 'assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename = 'assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+
+        <!-- Template Main CSS File -->
+        <link href="{{url_for('static', filename = 'assets/css/style.css')}}" rel="stylesheet">
+
+        <title>Find Textbook - bookXchange</title>
+    </head>
+    <body>
+        <header id="header" class="fixed-top ">
+            <div class="container d-flex align-items-center">
+
+            <h1 class="logo me-auto"><a href="/"><img src="{{url_for('static', filename='assets/img/logo.png')}}" alt="" class="img-fluid">bookXchange</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                <li><a class="nav-link scrollto" href="/">Home</a></li>
+                {% if session.get("email") %}
+                <li><a class="nav-link active" href="/find">Find a Textbook</a></li>
+                <li><a class="nav-link" href="/supply">Supply a Textbook</a></li>
+                <li><a class="nav-link" href="/logout">Log Out</a></li>
+                {% else %}
+                <li><a class="nav-link" href="/register">Register</a></li>
+                <li><a class="nav-link" href="/login">Log In</a></li>
+                {% endif %}
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </header><!-- End Header -->
+
+        <main>
+
+        <section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                <h2>Find a Textbook</h2>
+                <p>Find more ways to expand your knowledge by searching the specific name of your textbook.</p>
+                </div>
+
+                <div class="row">
+
+                <div class="col-lg-2">
+                    <br>
+                </div>
+
+                <div class="col-lg-8 mt-5 mt-lg-0 d-flex align-items-stretch">
+                    <form method="post" role="form" class="php-email-form">
+                        <div class="form-group">
+                        <center><label for="search">Search:</label></center>
+                        <input type="text" name="search" class="form-control" id="search" required>
+                        </div>
+                  
+                    <div class="text-center"><button type="submit">Submit </button></div>
+                    </form>
+                </div>
+
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- ======= Services Section ======= -->
+        {% if textbooks == -1 %}
+        <script>
+            alert("No Results Found! Maybe someone will supply this textbook in the future, so check here often!");
+        </script>
+        {% elif textbooks %}
+        <section id="services" class="services section-bg">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+            <h2>Search Results:</h2>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for res in textbooks %}
+                <a href="/request/{{res['Dictionary'].id}}"><div class="d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box">
+                        <h4>{{res["Dictionary"].to_dict()["Title"]}}</h4>
+                        <p>{{res["Dictionary"].to_dict()["Subject"]}} • {{res["Dictionary"].to_dict()["Comments"]}}</p>
+                        <p>{{res["Dictionary"].to_dict()["Owner"].get().id}} • {{res["Dictionary"].to_dict()["Owner"].get().to_dict()["Zip Code"]}}</p>
+                        {% if res["Dictionary"].to_dict()["Buy"] %}
+                        <p>Buy for ${{res["Dictionary"].to_dict()["BuyPrice"]}}</p>
+                        {% endif %}
+                        {% if res["Dictionary"].to_dict()["Rent"] %}
+                        <p>Rent for ${{res["Dictionary"].to_dict()["RentPrice"]}}</p>
+                        {% endif %}
+                    </div>
+                </div></a>
+            {% endfor %}
+            </div>
+
+        </div>
+        </section><!-- End Services Section -->
+        {% endif %}
+
+        </main>
+        
+        {% for msg in get_flashed_messages() %}
+            <script>
+                alert("{{msg}}");
+            </script>
+        {% endfor %}
+
+        <div id="preloader"></div>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        <!-- Vendor JS Files -->
+        <script src="{{url_for('static', filename = 'assets/vendor/aos/aos.js')}}"></script>
+        <script src="{{url_for('static', filename = 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+        <script src="{{url_for('static', filename = 'assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+        <script src="{{url_for('static', filename = 'assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+        <script src="{{url_for('static', filename = 'assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+        <script src="{{url_for('static', filename = 'assets/vendor/waypoints/noframework.waypoints.js')}}"></script>
+
+        <!-- Template Main JS File -->
+        <script src="{{url_for('static', filename = 'assets/js/main.js')}}"></script>
+    </body>
+</html>
