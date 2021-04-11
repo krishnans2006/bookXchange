@@ -63,12 +63,16 @@ def register():
 
 @app.route("/logout")
 def logout():
+    if not session.get("email"):
+        return redirect(url_for("login"))
     session.clear()
     flash("Successfully logged out!", category="success")
     return redirect(url_for("login"))
 
 @app.route("/find", methods=METHODS)
 def find():
+    if not session.get("email"):
+        return redirect(url_for("login"))
     if request.method == "POST":
         search = request.form.get("search")
         search = search if search else ""
@@ -83,6 +87,8 @@ def find():
 
 @app.route("/supply", methods=METHODS)
 def supply():
+    if not session.get("email"):
+        return redirect(url_for("login"))
     if request.method == "POST":
         subject = request.form.get("subject")
         title = request.form.get("title")
@@ -97,6 +103,8 @@ def supply():
 
 @app.route("/request/<id_>", methods=METHODS)
 def request_(id_):
+    if not session.get("email"):
+        return redirect(url_for("login"))
     if not id_:
         flash("Please request a valid textbook!", category="error")
         return redirect(url_for("find"))

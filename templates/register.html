@@ -36,12 +36,7 @@
                 <ul>
                 <li><a class="nav-link scrollto" href="/">Home</a></li>
                 {% if session.get("email") %}
-                <li class="dropdown"><a href=""><span>Find Textbooks</span><i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="/find/rent">Rent a Textbook</a></li>
-                        <li><a href="/find/buy">Buy a Textbook</a></li>
-                    </ul>
-                </li>
+                <li><a class="nav-link" href="/find">Find a Textbook</a></li>
                 <li><a class="nav-link" href="/supply">Supply a Textbook</a></li>
                 <li><a class="nav-link" href="/logout">Log Out</a></li>
                 {% else %}
